@@ -22,8 +22,13 @@
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/sequelize": "^10.0.0",
+    "@nestjs/swagger": "^7.0.11",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "pg": "^8.11.1",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
@@ -73,5 +78,9 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "moduleNameMapper": {
+    "@common/(.*)": "<rootDir>/common/$1",
+    "@users/(.*)": "<rootDir>/users/$1"
   }
 }
