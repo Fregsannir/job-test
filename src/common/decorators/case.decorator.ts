@@ -1,7 +1,7 @@
 import {
-    Transform,
-    TransformFnParams,
-    TransformOptions,
+  Transform,
+  TransformFnParams,
+  TransformOptions,
 } from 'class-transformer';
 
 export type CaseOptions = 'localeUpperCase' | 'localeLowerCase' | 'upperCase';
