@@ -22,52 +22,50 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Oписание
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Данное описание содержит гайд по установке и настройке данного модуля на своей рабочей машине.
 
-## Installation
+## Установка
+
+Первым делом нужно клонировать данный репозиторий на свою рабочую машину:
 
 ```bash
-$ npm install
+$ git clone https://github.com/Fregsannir/job-test.git
 ```
 
-## Running the app
+После успешного клонирования репозитория нужно добавить env файл.
+Допустимые названия файлов переменных сред:
+
+- `dev.env` (используется для запуска контейнеров в тестовом окружении);
+- `.env` (используется для запуска контейнеров в «продакшн» окружении).
+
+Разница между двумя данными подходами состоит в том, что в продакшн режиме используется компиляция проекта и занесение скомпилированного кода его в отдельный volume с последующим запуском. В тестовом же окружении остаётся отслеживание изменений кода и запускается dev скрипт запуска сервиса.
+
+## Запуск
+
+Для запуска на операционной системе с ядром unix, либо если есть WSL, можно использовать один из следующих скриптов: `run_dev.sh` или `run_prod.sh`.
 
 ```bash
 # development
-$ npm run start
+$ ./run_dev.sh
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# production
+$ ./run_prod.sh
 ```
 
-## Test
+После запуска контейнеров нужно запустить миграцию.
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+$ npm run database:migrate
 ```
 
-## Support
+Для перезапуска контейнеров есть скрипты `rebuild_dev.sh` и `rebuild_prod.sh`.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+# development
+$ ./rebuild_dev.sh
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+#production
+$ ./rebuild_prod.sh
+```
