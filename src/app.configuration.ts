@@ -1,12 +1,6 @@
 import { Transform, plainToInstance } from 'class-transformer';
-import {
-  IsEnum,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  ValidationError,
-  validateSync,
-} from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, ValidationError, validateSync } from 'class-validator';
+import { Algorithm } from 'jsonwebtoken';
 
 export enum Environment {
   Development = 'development',
@@ -21,6 +15,30 @@ export class AppConfiguration {
   @IsNumber()
   @Transform(({ value }) => parseInt(value))
   public readonly APP_PORT!: number;
+
+  @IsNumber()
+  @Transform(({ value }) => parseInt(value))
+  public readonly APP_SALT_ROUNDS!: number;
+
+  @IsString()
+  @IsNotEmpty()
+  public readonly APP_JWT_ALGORITHM!: Algorithm;
+
+  @IsString()
+  @IsNotEmpty()
+  public readonly APP_JWT_EXPIRES_IN!: string;
+
+  @IsString()
+  @IsOptional()
+  public readonly APP_JWT_SECRET?: string;
+
+  @IsString()
+  @IsOptional()
+  public readonly APP_JWT_PUBLIC_KEY?: string;
+
+  @IsString()
+  @IsOptional()
+  public readonly APP_JWT_PRIVATE_KEY?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -43,14 +61,10 @@ export class AppConfiguration {
   public readonly APP_DB_NAME!: string;
 }
 
-export function validate(
-  configuration: Record<string, unknown>,
-): AppConfiguration {
-  const finalConfiguration: AppConfiguration = plainToInstance(
-    AppConfiguration,
-    configuration,
-    { enableImplicitConversion: true },
-  );
+export function validate(configuration: Record<string, unknown>): AppConfiguration {
+  const finalConfiguration: AppConfiguration = plainToInstance(AppConfiguration, configuration, {
+    enableImplicitConversion: true,
+  });
 
   const errors: ValidationError[] = validateSync(finalConfiguration, {
     skipMissingProperties: false,

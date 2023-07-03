@@ -1,8 +1,4 @@
-import {
-  Transform,
-  TransformFnParams,
-  TransformOptions,
-} from 'class-transformer';
+import { Transform, TransformFnParams, TransformOptions } from 'class-transformer';
 
 export type TrimOptions = 'start' | 'end';
 
@@ -11,10 +7,7 @@ export type TrimOptions = 'start' | 'end';
  *
  * By default removes whitespaces from both ends of a string.
  */
-export function Trim(
-  trimOptions?: TrimOptions,
-  options?: TransformOptions,
-): PropertyDecorator {
+export function Trim(trimOptions?: TrimOptions, options?: TransformOptions): PropertyDecorator {
   return Transform(({ key, value }: TransformFnParams) => {
     if (typeof value !== 'string') {
       throw new Error(`'${key}' must be a type of string.`);

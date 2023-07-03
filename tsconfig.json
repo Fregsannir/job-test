@@ -18,7 +18,9 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
+      "@auth/*": ["auth/*"],
       "@common/*": ["common/*"],
+      "@cryptor/*": ["cryptor/*"],
       "@users/*": ["users/*"]
     }
   }

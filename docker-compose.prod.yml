@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+  test-task-postgres-prod:
+    container_name: test-task-postgres-prod
+    image: postgres:latest
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - test-task-network-prod
+    env_file:
+      - dev.env
+    environment:
+      - POSTGRES_USER=$APP_DB_USERNAME
+      - POSTGRES_PASSWORD=$APP_DB_PASSWORD
+      - POSTGRES_DB=$APP_DB_NAME
+    ports:
+      - $APP_DB_PORT:$APP_DB_PORT
+
+  test-task-backend-prod:
+    container_name: test-task-backend-prod
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile
+    depends_on:
+      - test-task-postgres-prod
+    volumes:
+      - node_modules:/usr/app/test-task/node_modules
+      - dist:/usr/app/test-task/dist
+    networks:
+      - test-task-network-prod
+    env_file:
+      - dev.env
+    ports:
+      - $APP_PORT:$APP_PORT
+
+volumes:
+  pgdata:
+  node_modules:
+  dist:
+
+networks:
+  test-task-network-prod:
+    driver: bridge

@@ -1,8 +1,4 @@
-import {
-  Transform,
-  TransformFnParams,
-  TransformOptions,
-} from 'class-transformer';
+import { Transform, TransformFnParams, TransformOptions } from 'class-transformer';
 
 export type CaseOptions = 'localeUpperCase' | 'localeLowerCase' | 'upperCase';
 
@@ -11,10 +7,7 @@ export type CaseOptions = 'localeUpperCase' | 'localeLowerCase' | 'upperCase';
  *
  * By default converts string to lowercase.
  */
-export function Case(
-  caseOptions?: CaseOptions,
-  options?: TransformOptions,
-): PropertyDecorator {
+export function Case(caseOptions?: CaseOptions, options?: TransformOptions): PropertyDecorator {
   return Transform(({ key, value }: TransformFnParams) => {
     if (typeof value !== 'string') {
       throw new Error(`'${key}' must be a type of string.`);

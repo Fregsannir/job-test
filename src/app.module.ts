@@ -1,6 +1,9 @@
+import { AuthModule } from '@auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { User } from '@users/entities/user.entity';
+import { UsersModule } from '@users/users.module';
 import { AppConfiguration, validate } from './app.configuration';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -14,7 +17,7 @@ import { AppService } from './app.service';
       validate,
     }),
     SequelizeModule.forRootAsync({
-      inject: [ConfigService<AppConfiguration, true>],
+      inject: [ConfigService],
       useFactory: (configService: ConfigService<AppConfiguration, true>) => ({
         dialect: 'postgres',
         host: configService.get<string>('APP_DB_HOST'),
@@ -22,9 +25,12 @@ import { AppService } from './app.service';
         username: configService.get<string>('APP_DB_USERNAME'),
         password: configService.get<string>('APP_DB_PASSWORD'),
         database: configService.get<string>('APP_DB_NAME'),
-        models: [`${__dirname}/**/entities/*.ts`],
+        models: [User],
+        synchronize: true,
       }),
     }),
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
