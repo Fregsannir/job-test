@@ -31,7 +31,7 @@
 Первым делом нужно клонировать данный репозиторий на свою рабочую машину:
 
 ```bash
-$ git clone https://github.com/Fregsannir/job-test-task.git
+$ git clone https://github.com/Fregsannir/job-test.git
 ```
 
 После успешного клонирования репозитория нужно добавить env файл.
